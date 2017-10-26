@@ -100,6 +100,7 @@ public class Button extends Actor
         CreatureWorld world = (CreatureWorld)getWorld();
         
         Creature enemy;
+        
         if( getObjectsInRange(200, Creature.class).get(0).getPlayerOwnership() == 1)
         {
             enemy = world.getPlayerTwo();
@@ -108,6 +109,7 @@ public class Button extends Actor
         {
             enemy = world.getPlayerOne();
         }
+        
         if( Greenfoot.mousePressed(this) )
         {
             setImage( buttonImage2 );
@@ -125,6 +127,7 @@ public class Button extends Actor
                 
                 justClicked = false;
             }
+            
         }
         
     } 

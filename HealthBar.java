@@ -100,6 +100,7 @@ public class HealthBar extends Actor
           {
            current = target;
           }
+          
         }
         else
         {
@@ -109,7 +110,6 @@ public class HealthBar extends Actor
          {
           current = target; 
          }
-    
 
         }
 
