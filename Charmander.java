@@ -25,12 +25,12 @@ public class Charmander extends Creature
         {
             enemy.getHealthBar().add( -70 );
         }
-         world.setTurnNumber(2);
+         world.setTurnNumber(true);
     }
     
     public Charmander(World w)
     {
-        super(700,1, "Fire");
+        super(700,true, "Fire");
         
         getImage().scale(150,100);
         

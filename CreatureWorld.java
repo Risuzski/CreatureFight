@@ -4,13 +4,13 @@ import javax.swing.JOptionPane;
 import java.util.List;
 
 /**
- * Write a description of class MyWorld here.
+ * Write a description of class CreatureWorld here.
  * 
  * Name: Wyan Gregorio
  * Course: CS20S
  * Teacher: Mr. Hardman
- * Lab #2, Program #2
- * Date Last Modified: 10/16/2017 3:21 Pm
+ * Lab #3, Program #1
+ * Date Last Modified: 12/13/2017 3:07 Pm
  *
  * 
  * @author (your name) 
@@ -21,7 +21,10 @@ public class CreatureWorld extends World
     private Creature playerOneCreature;
     private Creature playerTwoCreature;
     
-    private int turnNumber;
+    private boolean playerOneTurn;
+    private boolean start;
+    private boolean playerOneMenusAdded;
+    private boolean playerTwoMenusAdded;
     
     private String playerOneName;
     private String playerTwoName;
@@ -48,7 +51,7 @@ public class CreatureWorld extends World
         
         prepareCreatures();
 
-        turnNumber = 0;
+        start = true;
         
         Greenfoot.start();
      
@@ -71,14 +74,15 @@ public class CreatureWorld extends World
         return playerTwoCreature;
     }
     
-    public int getTurnNumber()
+    public boolean getTurnNumber()
     {
-        return turnNumber;
+        return playerOneTurn;
     }
     
-    public void setTurnNumber( int turn)
+    public boolean setTurnNumber( boolean turn)
     {
-        turnNumber = turn;  
+        playerOneTurn = turn;
+        return turn;
     }
     
     /**
@@ -92,7 +96,7 @@ public class CreatureWorld extends World
     {
         List allObjects = getObjects(null);
         
-        if (turnNumber == 0)
+        if (start == true)
         {
             playerOneName = JOptionPane.showInputDialog( "Player One, please enter your name:", null );
             playerTwoName = JOptionPane.showInputDialog( "Player Two, please enter your name:", null );
@@ -108,9 +112,10 @@ public class CreatureWorld extends World
             addObject( twoFightMenu,131,75);
             addObject( twoSwitchMenu,199,75);
             
-            turnNumber = 1;
+            start = false;
+            playerOneTurn = true;
         }
-        else if(turnNumber == 1)
+        else if(playerOneTurn == true)
         {
             showText(playerOneName + "'s turn",getWidth()/2,getHeight()/2);
             
@@ -122,6 +127,20 @@ public class CreatureWorld extends World
             
             showText("",getWidth()/2,getHeight()/2 + 26);
         }
+        
+        if ( playerOneMenusAdded == false )
+        {
+            oneFightMenu = new Menu( " Fight ", " Scratch \n Flamethrower ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands() );
+            oneSwitchMenu = new Menu( " Switch ", " Golem \n Ivysaur ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands() );
+            
+        }
+        else if( playerTwoMenusAdded == false )
+        {
+            twoFightMenu = new Menu( " Fight ", " Tackle \n Thunderbolt ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new FightCommands() );
+            twoSwitchMenu = new Menu( " Switch ", " Lapras \n Pidgeot ", 24, Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE, new SwitchCommands() );
+            
+        }
+        
         
         if (playerOneCreature.getHealthBar().getCurrent() <=0)
         {
